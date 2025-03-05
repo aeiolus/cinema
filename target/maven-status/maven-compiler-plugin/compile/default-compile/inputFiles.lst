@@ -1,0 +1,8 @@
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/CinemaApplication.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/config/SecurityConfig.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/controller/FilmController.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/exception/DuplicateTitleException.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/exception/FilmNotFoundException.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/model/Film.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/repository/FilmRepository.java
+/Users/peter.mikolaj/dev/candidateManagement/src/main/java/com/example/cinema/service/FilmService.java

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<body>
+    <!-- Form Field Fragment -->
+    <div th:fragment="form-field(label, type, id, field, required)">
+        <div class="mb-4">
+            <label th:for="${id}" class="form-label" th:text="${label}">Label</label>
+            <input th:type="${type}" class="form-control" th:id="${id}" th:field="${field}" th:required="${required}">
+        </div>
+    </div>
+
+    <!-- Button Group Fragment -->
+    <div th:fragment="button-group(submitText, submitIcon, cancelUrl)">
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-signal">
+                <i class="material-icons" th:text="${submitIcon}">save</i>
+                <span th:text="${submitText}">Submit</span>
+            </button>
+            <a th:href="${cancelUrl}" class="btn btn-signal-outline">
+                <i class="material-icons">arrow_back</i> Cancel
+            </a>
+        </div>
+    </div>
+</body>
+</html>

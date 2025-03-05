@@ -1,0 +1,65 @@
+version: '3'
+services:
+  backend:
+    build: ./cinema-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000
+#    expose:
+#      - "8000"
+#      - "8080"
+    deploy:
+      replicas: 2
+    restart: always
+    networks:
+      - cinema-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - cinema-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: cinema
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    networks:
+      - cinema-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cinema"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  angular-frontend:
+    build:
+      context: ./cinema-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - cinema-network
+
+volumes:
+  db-data:
+
+networks:
+  cinema-network:
+    driver: bridge

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Film</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Add New Film</h2>
+            <div class="button-group">
+                <button type="button" onclick="window.location.href='/'" class="button button-secondary">
+                    Back to List
+                </button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div th:if="${message}" th:class="${'alert alert-' + messageType}" role="alert">
+                <span th:text="${message}"></span>
+            </div>
+
+            <form th:action="@{/films/add}" method="post" th:object="${newFilm}">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" th:field="*{title}" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" th:field="*{notes}" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" th:field="*{state}" class="form-control">
+                        <option th:value="${T(com.example.cinema.model.Film.FilmState).OPEN}" th:text="${T(com.example.cinema.model.Film.FilmState).OPEN}"></option>
+                        <option th:value="${T(com.example.cinema.model.Film.FilmState).CLOSED}" th:text="${T(com.example.cinema.model.Film.FilmState).CLOSED}"></option>
+                        <option th:value="${T(com.example.cinema.model.Film.FilmState).PENDING}" th:text="${T(com.example.cinema.model.Film.FilmState).PENDING}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="button button-primary">
+                        Add Film
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

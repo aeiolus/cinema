@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Add New Film</h2>
+        </div>
+
+        <form (ngSubmit)="addFilm()" #filmForm="ngForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" [(ngModel)]="film.title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes" [(ngModel)]="film.notes" rows="4"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button button-primary" [disabled]="!filmForm.form.valid || isSubmitting">
+                    {{ isSubmitting ? 'Saving...' : 'Save Film' }}
+                </button>
+                <button type="button" class="button" routerLink="/films" [disabled]="isSubmitting">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

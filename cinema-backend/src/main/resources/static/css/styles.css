@@ -1,0 +1,130 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'MS Sans Serif', sans-serif;
+    background-color: #008080;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #C0C0C0;
+    border: 2px solid #FFFFFF;
+    padding: 20px !important;
+body {
+    font-family: 'MS Sans Serif', sans-serif;
+    background-color: #008080;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #C0C0C0;
+    border: 2px solid #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px #808080;
+    max-width: 1920px;
+    margin: 20px auto;
+}
+
+.button {
+    background-color: #C0C0C0;
+    border: 2px outset buttonhighlight;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:active {
+    border: 2px inset buttonshadow;
+}
+
+.header {
+    background-color: #000080;
+    color: #FFFFFF;
+    padding: 5px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #000000;
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: #000080;
+    color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #C0C0C0;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #808080;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-primary {
+    background-color: #1976d2;
+    color: white;
+}
+
+.button-secondary {
+    background-color: #757575;
+    color: white;
+}
+
+.alert-info {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}

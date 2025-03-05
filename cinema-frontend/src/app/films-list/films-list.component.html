@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="header">
+        <h2>Films List</h2>
+        <button class="button button-primary" routerLink="/films/new">Add New Film</button>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+        Loading films...
+    </div>
+
+    <div *ngIf="!isLoading && films.length === 0" class="empty-state">
+        No films available. Add some films to get started!
+    </div>
+
+    <div *ngIf="!isLoading && films.length > 0" class="films-grid">
+        <div *ngFor="let film of films" class="film-card">
+            <div class="film-header">
+                <h3>{{ film.title }}</h3>
+                <span [class]="'state-badge ' + getStateClass(film.state)">{{ film.state }}</span>
+            </div>
+
+            <div class="film-content">
+                <p class="notes">{{ film.notes }}</p>
+            </div>
+
+            <div class="film-actions">
+                <button *ngIf="film.state === 'OPEN' || film.state === 'INACTIVE'"
+                        class="button button-success"
+                        (click)="activateFilm(film.id!)">
+                    Activate
+                </button>
+                <button *ngIf="film.state === 'ACTIVE'"
+                        class="button button-danger"
+                        (click)="deactivateFilm(film.id!)">
+                    Deactivate
+                </button>
+                <button class="button"
+                        routerLink="/films/edit/{{ film.id }}">
+                    Edit
+                </button>
+                <button class="button button-danger"
+                        (click)="deleteFilm(film.id!)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+# PostgreSQL Database Configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/cinema
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+  # Flyway Configuration
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+
+  # JPA Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# Server Configuration
+server:
+  port: 8080

@@ -1,0 +1,48 @@
+<div class="showtimes-container">
+    <!-- Single level of tabs for date selection -->
+    <mat-tab-group (selectedTabChange)="onDateChange($event.index)">
+        @for (date of availableDates; track date) {
+            <mat-tab [label]="formatTabDate(date)">
+                <div class="table-container">
+                    @if (showtimes.length === 0) {
+                        <p class="no-showtimes">No showtimes scheduled for this day</p>
+                    } @else {
+                        <table mat-table [dataSource]="showtimes" class="mat-elevation-z8">
+                            <!-- Image Column -->
+                            <ng-container matColumnDef="image">
+                                <th mat-header-cell *matHeaderCellDef>Movie</th>
+                                <td mat-cell *matCellDef="let showtime">
+                                    <img [src]="showtime.film.imageUrl || 'assets/images/default-movie.jpg'"
+                                         alt="{{ showtime.film.title }}"
+                                         class="movie-thumbnail">
+                                </td>
+                            </ng-container>
+
+                            <!-- Title Column -->
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Title</th>
+                                <td mat-cell *matCellDef="let showtime">
+                                    <div class="movie-info">
+                                        <h3>{{ showtime.film.title }}</h3>
+                                        <p>{{ showtime.film.notes }}</p>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Time Column -->
+                            <ng-container matColumnDef="time">
+                                <th mat-header-cell *matHeaderCellDef>Time</th>
+                                <td mat-cell *matCellDef="let showtime">
+                                    {{ formatTime(showtime.startTime) }}
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    }
+                </div>
+            </mat-tab>
+        }
+    </mat-tab-group>
+</div>

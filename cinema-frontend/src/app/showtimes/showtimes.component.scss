@@ -1,0 +1,108 @@
+.showtimes-container {
+    padding: 20px;
+
+    .date-selector {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+
+        mat-form-field {
+            min-width: 120px;
+        }
+    }
+    
+    ::ng-deep .mat-tab-labels {
+        justify-content: center;
+    }
+    
+    .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .movie-thumbnail {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .movie-info {
+        h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 0.9em;
+        }
+    }
+
+    .no-showtimes {
+        text-align: center;
+        padding: 20px;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    // Responsive adjustments
+    @media (max-width: 600px) {
+        .date-selector {
+            flex-direction: column;
+            gap: 8px;
+
+            mat-form-field {
+                width: 100%;
+            }
+        }
+
+        .movie-thumbnail {
+            width: 80px;
+            height: 120px;
+        }
+
+        .movie-info {
+            h3 {
+                font-size: 1em;
+            }
+
+            p {
+                font-size: 0.8em;
+            }
+        }
+    }
+}
+
+.showtimes-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.showtime-card {
+    max-width: 600px;
+    margin: 0 auto;
+    
+    mat-card-title {
+        font-size: 1.2em;
+        margin-bottom: 8px;
+    }
+    
+    mat-card-subtitle {
+        color: #666;
+    }
+}
+
+.no-showtimes {
+    text-align: center;
+    color: #666;
+    margin-top: 40px;
+    font-style: italic;
+}

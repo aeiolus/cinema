@@ -1,0 +1,270 @@
+openapi: 3.0.3
+info:
+  title: Cinema Management API
+  description: API for managing cinema films and showtimes
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api
+    description: Local development server
+
+components:
+  schemas:
+    Film:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        title:
+          type: string
+          description: The title of the film
+        notes:
+          type: string
+          description: Additional notes about the film
+        state:
+          type: string
+          enum: [OPEN, ACTIVE, INACTIVE]
+          description: Current state of the film
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - title
+        
+    Showtime:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        film:
+          $ref: '#/components/schemas/Film'
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of the film showing
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - film
+        - startTime
+
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    
+    DuplicateTitle:
+      description: A film with this title already exists
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+paths:
+  /films:
+    get:
+      summary: List all films
+      description: Retrieves a list of all films in the system
+      operationId: listFilms
+      responses:
+        '200':
+          description: List of films retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+
+  /films/new:
+    post:
+      summary: Create a new film
+      description: Creates a new film with state set to OPEN
+      operationId: addFilm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '200':
+          description: Film created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '400':
+          $ref: '#/components/responses/DuplicateTitle'
+
+  /films/{id}:
+    get:
+      summary: Get a specific film
+      description: Retrieves details of a specific film by ID
+      operationId: getFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Film details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    
+    put:
+      summary: Update a film
+      description: Updates an existing film's details
+      operationId: updateFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '200':
+          description: Film updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '400':
+          $ref: '#/components/responses/DuplicateTitle'
+    
+    delete:
+      summary: Delete a film
+      description: Deletes a specific film by ID
+      operationId: deleteFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Film deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /films/{id}/activate:
+    put:
+      summary: Activate a film
+      description: Changes a film's state to ACTIVE
+      operationId: activateFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Film activated successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /films/{id}/deactivate:
+    put:
+      summary: Deactivate a film
+      description: Changes a film's state to INACTIVE
+      operationId: deactivateFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Film deactivated successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /showtimes:
+    post:
+      summary: Create a new showtime
+      description: Creates a new showtime for a film
+      operationId: createShowtime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Showtime'
+      responses:
+        '200':
+          description: Showtime created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Showtime'
+        '404':
+          description: Referenced film not found
+
+  /showtimes/date/{date}:
+    get:
+      summary: Get showtimes by date
+      description: Retrieves all showtimes for a specific date
+      operationId: getShowtimesByDate
+      parameters:
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string
+            format: date
+          description: Date in ISO format (YYYY-MM-DD)
+      responses:
+        '200':
+          description: List of showtimes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Showtime'
