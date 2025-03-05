@@ -18,6 +18,7 @@ public class FilmService {
         this.filmRepository = filmRepository;
     }
 
+    @Cacheable(value = "films")
     public List<Film> getAllFilms() {
         return filmRepository.findAll();
     }

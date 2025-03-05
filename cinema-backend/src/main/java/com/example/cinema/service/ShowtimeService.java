@@ -3,6 +3,8 @@ package com.example.cinema.service;
 import com.example.cinema.model.Film;
 import com.example.cinema.model.Showtime;
 import com.example.cinema.repository.ShowtimeRepository;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ public class ShowtimeService {
         return showtimeRepository.save(showtime);
     }
 
+    @Cacheable(value = "showtimes")
     public List<Showtime> findByDate(LocalDate date) {
         ZonedDateTime startOfDay = date.atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime endOfDay = startOfDay.plusDays(1).minusNanos(1);
